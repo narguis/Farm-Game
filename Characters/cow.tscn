@@ -1,27 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://cf2googcnamjr"]
+[gd_scene load_steps=16 format=3 uid="uid://cf2googcnamjr"]
 
 [ext_resource type="Texture2D" uid="uid://ddtwbws5u64hv" path="res://Art/Sprout Lands - Sprites - Basic pack/Characters/Free Cow Sprites.png" id="1_02gcx"]
 [ext_resource type="Script" path="res://Characters/cow.gd" id="1_kqnk2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_72jcg"]
 size = Vector2(22, 13)
-
-[sub_resource type="Animation" id="Animation_3jmt1"]
-resource_name = "idle"
-length = 1.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 2]
-}
 
 [sub_resource type="Animation" id="Animation_3h7nm"]
 length = 0.001
@@ -38,9 +21,9 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_2c62a"]
-resource_name = "walk"
-length = 0.4
+[sub_resource type="Animation" id="Animation_3jmt1"]
+resource_name = "idle"
+length = 2.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -49,37 +32,35 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2, 1.6, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 2, 0, 1, 0, 2]
+}
+
+[sub_resource type="Animation" id="Animation_2c62a"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [3, 4]
 }
 
-[sub_resource type="Animation" id="Animation_mhwjv"]
-resource_name = "blink"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [1, 0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n2btw"]
 _data = {
 "RESET": SubResource("Animation_3h7nm"),
-"blink": SubResource("Animation_mhwjv"),
 "idle": SubResource("Animation_3jmt1"),
 "walk": SubResource("Animation_2c62a")
 }
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_7t5co"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0clb6"]
 animation = &"idle"
@@ -89,14 +70,16 @@ blend_point_0/node = SubResource("AnimationNodeAnimation_0clb6")
 blend_point_0/pos = Vector2(0, 0)
 blend_mode = 1
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w50el"]
+animation = &"walk"
+
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_ft1lw"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_w50el")
+blend_point_0/pos = Vector2(0, 0)
+blend_mode = 1
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ocs0m"]
 advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_c6xfh"]
-advance_mode = 2
-advance_condition = &"blink"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_45bva"]
 advance_mode = 2
@@ -106,27 +89,15 @@ advance_condition = &"ismoving"
 advance_mode = 2
 advance_condition = &"idle"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n3vc3"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"idle"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hfqrb"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"ismoving"
-
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_qacyb"]
-states/Blink/node = SubResource("AnimationNodeBlendSpace2D_7t5co")
-states/Blink/position = Vector2(561, 35)
 states/Idle/node = SubResource("AnimationNodeBlendSpace2D_30ql4")
 states/Idle/position = Vector2(369, 92)
 states/Start/position = Vector2(202, 92)
 states/Walk/node = SubResource("AnimationNodeBlendSpace2D_ft1lw")
 states/Walk/position = Vector2(736, 92)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_ocs0m"), "Idle", "Blink", SubResource("AnimationNodeStateMachineTransition_c6xfh"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_45bva"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_c4wy4"), "Blink", "Idle", SubResource("AnimationNodeStateMachineTransition_n3vc3"), "Blink", "Walk", SubResource("AnimationNodeStateMachineTransition_hfqrb")]
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_ocs0m"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_45bva"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_c4wy4")]
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Cow" type="CharacterBody2D"]
 script = ExtResource("1_kqnk2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -146,9 +117,12 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_qacyb")
 anim_player = NodePath("../AnimationPlayer")
-parameters/conditions/blink = false
+active = true
 parameters/conditions/idle = false
 parameters/conditions/ismoving = false
-parameters/Blink/blend_position = Vector2(0, 0)
 parameters/Idle/blend_position = Vector2(0, 0)
-parameters/Walk/blend_position = Vector2(0, 0)
+parameters/Walk/blend_position = Vector2(0, -0.0106384)
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

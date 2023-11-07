@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://xdpyxikr5jmg"]
+
+[ext_resource type="Texture2D" uid="uid://dtdexe8cpnk2n" path="res://Art/Sprout Lands - Sprites - Basic pack/Characters/Free Chicken Sprites.png" id="1_xnsik"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yum36"]
+size = Vector2(11, 11)
+
+[sub_resource type="Animation" id="Animation_d6g6m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_cli1d"]
+resource_name = "Walk"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ftk1o"]
+_data = {
+"RESET": SubResource("Animation_d6g6m"),
+"Walk": SubResource("Animation_cli1d")
+}
+
+[node name="Chicken" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_xnsik")
+centered = false
+hframes = 4
+vframes = 2
+frame = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(6.5, 8.5)
+shape = SubResource("RectangleShape2D_yum36")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ftk1o")
+}

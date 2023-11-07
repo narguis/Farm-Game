@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm35qmtxgw1f2"]
+
+[ext_resource type="Texture2D" uid="uid://le0752t4u20o" path="res://Art/Sprout Lands - Sprites - Basic pack/Tilesets/Wooden House.png" id="1_1fofj"]
+
+[node name="House" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(55.5, 41)
+scale = Vector2(0.991071, 1)
+texture = ExtResource("1_1fofj")

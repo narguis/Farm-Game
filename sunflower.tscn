@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cayw304m057ii"]
+
+[ext_resource type="Texture2D" uid="uid://chn1sl57pifbh" path="res://Art/Sprout Lands - Sprites - Basic pack/Objects/Basic Grass Biom things 1.png" id="1_jae72"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurxb"]
+size = Vector2(12, 5)
+
+[node name="Sunflower" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_jae72")
+region_enabled = true
+region_rect = Rect2(128, 32, 16, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 11.5)
+shape = SubResource("RectangleShape2D_hurxb")
